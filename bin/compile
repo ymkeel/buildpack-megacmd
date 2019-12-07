@@ -22,9 +22,9 @@ export PATH="$PATH:$PWD"
 cd $CURRDIR
 
 
-wget -P /tmp https://megatools.megous.com/builds/megatools-1.9.98.tar.gz
-tar xvf /tmp/megatools-1.9.98.tar.gz -C $BUILD_DIR
-cd $BUILD_DIR/megatools-1.9.98
+wget -P /tmp https://megatools.megous.com/builds/experimental/megatools-1.11.0-git-20180814.tar.gz
+tar xvf /tmp/megatools-1.11.0-git-20180814.tar.gz -C $BUILD_DIR
+cd $BUILD_DIR/megatools-1.11.0-git-20180814
 ./configure
 make
 MEGATOOLSPATH=$PWD
