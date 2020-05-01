@@ -7,13 +7,14 @@ set -e
 BUILD_DIR=$1
 CACHE_DIR=$2
 BUILDPACK_DIR="$(dirname $(dirname $0))"
-
 CURRDIR=$PWD
 
-wget -P /tmp https://downloads.sourceforge.net/project/asciidoc/asciidoc/8.6.9/asciidoc-8.6.9.tar.gz
-tar xvf /tmp/asciidoc-8.6.9.tar.gz -C $BUILD_DIR
+mkdir -p $BUILD_DIR/vendor
 
-cd $BUILD_DIR/asciidoc-8.6.9
+wget -P /tmp https://downloads.sourceforge.net/project/asciidoc/asciidoc/8.6.9/asciidoc-8.6.9.tar.gz
+tar xvf /tmp/asciidoc-8.6.9.tar.gz -C $BUILD_DIR/vendor/
+
+cd $BUILD_DIR/vendor/asciidoc-8.6.9
 ./configure
 make
 ln -s a2x.py a2x
@@ -21,17 +22,14 @@ ASCIIDOCPATH=$PWD
 export PATH="$PATH:$PWD"
 cd $CURRDIR
 
+wget -P /tmp https://megatools.megous.com/builds/experimental/megatools-1.11.0-git-20200501-linux-x86_64.tar.gz
+tar xvf /tmp/megatools-1.11.0-git-20200501-linux-x86_64.tar.gz --strip-components=1 --one-top-level=$BUILD_DIR/vendor/megatools-1.11.0-20200501
 
-wget -P /tmp https://megatools.megous.com/builds/experimental/megatools-1.11.0-git-20180814.tar.gz
-tar xvf /tmp/megatools-1.11.0-git-20180814.tar.gz -C $BUILD_DIR
-cd $BUILD_DIR/megatools-1.11.0-git-20180814
-./configure
-make
+cd $BUILD_DIR/vendor/megatools-1.11.0-20200501
 MEGATOOLSPATH=$PWD
 export PATH="$PATH:$PWD"
-
 cd $CURRDIR
 
 mkdir -p $BUILD_DIR/.profile.d
-cp "$BUILDPACK_DIR/bin/megatools.sh" $BUILD_DIR/.profile.d/
-chmod +x $BUILD_DIR/.profile.d/megatools.sh
+PROFILE_PATH="$BUILD_DIR/.profile.d/megatools.sh"
+echo "export PATH=\$PATH:/app/vendor/megatools-1.11.0-20200501" >> $PROFILE_PATH
