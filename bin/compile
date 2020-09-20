@@ -22,7 +22,7 @@ ASCIIDOCPATH=$PWD
 export PATH="$PATH:$PWD"
 cd $CURRDIR
 
-wget -P /tmp https://megatools.megous.com/builds/experimental/megatools-1.11.0-git-20200501-linux-x86_64.tar.gz
+wget -P /tmp https://megatools.megous.com/builds/experimental/megatools-1.11.0-git-20200503-linux-x86_64.tar.gz
 tar xvf /tmp/megatools-1.11.0-git-20200501-linux-x86_64.tar.gz --strip-components=1 --one-top-level=$BUILD_DIR/vendor/megatools-1.11.0-20200501
 
 cd $BUILD_DIR/vendor/megatools-1.11.0-20200501
